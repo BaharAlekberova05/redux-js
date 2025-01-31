@@ -2,55 +2,43 @@ import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import { createStore } from "redux";
 import configureStore from "./tools/store/ConfigureStore.js";
-import { getProduct } from "./tools/actions/ProductAction.js";
+import { addProduct, getProduct } from "./tools/actions/ProductAction.js";
+import { Provider } from "react-redux";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 
 //! TOOLS FOLDERI YARADANDAN SONRA
 const store = configureStore();
-store.subscribe(() => {
-  console.log(store.getState());
-});
 
 store.dispatch(getProduct());
 
-// ! TOOLS FOLDERI YARATMADAN ONCE
-// const initialState = {
-//   count: 0,
-// };
-
-// const store = createStore((state = initialState, action) => {
-//   switch (action.type) {
-//     case "INCREMENT":
-//       return { count: state.count + action.payload };
-//     case "DECREMENT":
-//       return { count: state.count - 1 };
-//     case "RESET":
-//       return { count: 0 };
-//     default:
-//       return state;
-//   }
-// });
-
-// store.subscribe(() => {
-//   console.log(store.getState());
-// });
-
-// store.dispatch({
-//   type: "INCREMENT",
-//   payload: 10,
-// });
-
-// store.dispatch({
-//   type: "RESET",
-// });
-
-// store.dispatch({
-//   type: "DECREMENT",
-// });
-
-// console.log(store);
+store.dispatch(
+  addProduct({
+    img: "https://www.carandbike.com/_next/image?url=https%3A%2F%2Fc.ndtvimg.com%2Frange-rover-sport_625x300_1530181391799.jpg&w=1080&q=75",
+    title: "RR",
+    price: 250,
+    desc: "Range Rover",
+  })
+);
+store.dispatch(
+  addProduct({
+    img: "https://imgcdn.oto.com/medium/gallery/exterior/31/248/porsche-panamera-48871.jpg",
+    title: "PR",
+    price: 350,
+    desc: "Porsche",
+  })
+);
+store.dispatch(
+  addProduct({
+    img: "https://www.europeanprestige.co.uk/blobs/stock/394/images/d54b823d-3a0c-4377-9ecc-314bfc88ea55/hi4a9316.jpg?width=2000&height=1333",
+    title: "MR",
+    price: 200,
+    desc: "Mercedes",
+  })
+);
 
 createRoot(document.getElementById("root")).render(
-  <>
+  <Provider store={store}>
     <App />
-  </>
+  </Provider>
 );

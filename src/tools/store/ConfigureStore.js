@@ -1,12 +1,14 @@
 //? CREATESTORE-UN İCERSİNDEKI CALLBACK = REDUCER-DIR;
 
-import { createStore } from "redux";
+import { combineReducers, createStore } from "redux";
 import { productReducer } from "../reducers/ProductReducer";
 
-
-
 const configureStore = () => {
-  const store = createStore(productReducer);
+  const store = createStore(
+    combineReducers({
+      product: productReducer,
+    })
+  );
 
   return store;
 };
